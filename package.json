@@ -1,26 +1,46 @@
 {
-  "name": "strv-address-book",
+  "name": "strv-addressbook",
   "version": "0.0.0",
   "main": "index.js",
   "author": "Vitor Terçariol Rangel <rangel.final@gmail.com>",
   "private": true,
   "packageManager": "yarn@3.1.0-rc.5",
   "scripts": {
-    "prepare": "husky install",
     "build": "tsc",
     "commit": "cz",
-    "release": "standard-version"
+    "release": "standard-version",
+    "postinstall": "husky install"
+  },
+  "dependencies": {
+    "@mikro-orm/core": "^4.5.9",
+    "@mikro-orm/postgresql": "^4.5.9",
+    "bcrypt": "^5.0.1",
+    "firebase": "^9.0.2",
+    "firebase-admin": "^9.11.1",
+    "jsonwebtoken": "^8.5.1",
+    "koa": "^2.13.1",
+    "koa-body": "^4.2.0",
+    "koa-jwt": "^4.0.1",
+    "koa-router": "^10.1.1",
+    "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {
     "@commitlint/cli": "^13.1.0",
     "@commitlint/config-conventional": "^13.1.0",
     "@commitlint/load": "^13.1.0",
     "@commitlint/types": "^13.1.0",
+    "@mikro-orm/cli": "^4.5.9",
+    "@types/bcrypt": "^5",
+    "@types/chai": "^4",
     "@types/jsonwebtoken": "^8",
     "@types/koa": "^2.13.4",
+    "@types/koa-router": "^7.4.4",
+    "@types/mocha": "^9",
     "@types/node": "^16.7.10",
+    "@types/uuid": "^8",
     "@typescript-eslint/eslint-plugin": "^4.30.0",
     "@typescript-eslint/parser": "^4.30.0",
+    "chai": "^4.3.4",
     "commitiquette": "^1.1.1",
     "commitizen": "^4.2.4",
     "cz-conventional-changelog": "3.3.0",
@@ -30,8 +50,10 @@
     "eslint-plugin-promise": "^5.1.0",
     "eslint-plugin-react": "^7.25.1",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "firebase-tools": "^9.18.0",
     "husky": "^7.0.2",
     "lint-staged": "^11.1.2",
+    "mocha": "^9.1.1",
     "prettier": "^2.3.2",
     "standard-version": "^9.3.1",
     "ts-lib": "^0.0.5",
@@ -42,11 +64,8 @@
       "path": "commitiquette"
     }
   },
-  "dependencies": {
-    "@mikro-orm/core": "^4.5.9",
-    "@mikro-orm/postgresql": "^4.5.9",
-    "jsonwebtoken": "^8.5.1",
-    "koa": "^2.13.1",
-    "koa-jwt": "^4.0.1"
+  "lint-staged": {
+    "*.{js,ts}": "eslint --cache --fix",
+    "*.{js,ts,json,css,md}": "prettier --write"
   }
 }
