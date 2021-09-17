@@ -1,6 +1,6 @@
 import { EntityManager, MikroORM, RequestContext } from "@mikro-orm/core";
 import { EntityRepository } from "@mikro-orm/postgresql";
-import FirebaseAdmin from "firebase-admin";
+import FirebaseAdmin, { AppOptions } from "firebase-admin";
 import { Server } from "http";
 import Koa from "koa";
 import bodyParser from "koa-body";
@@ -12,7 +12,11 @@ import { contactController } from "./contact/contact.controller";
 import { userController } from "./user/user.controller";
 import { User } from "./user/user.entity";
 
-export const JWTSecret = "2e610f6a-0f4f-4edf-9b3d-68b815262701"; // Temp fake secret for development
+export const JWTSecret = process.env.JWT_SECRET;
+
+if (!JWTSecret) {
+  throw new Error("Missing JWT_SECRET environment variable");
+}
 
 // Basic dependency injection based on https://github.com/mikro-orm/koa-ts-example-app/blob/7c291ce75c38760175261c082e8b8f1c2635bc40/app/server.ts#L11
 export const DI = {} as {
@@ -45,7 +49,14 @@ app.use((ctx, next) =>
 );
 
 // Initialize firebase and export firestore instance
-FirebaseAdmin.initializeApp();
+const firebaseConfig: AppOptions = {};
+if (process.env.FIREBASE_SERVICE_ACCOUNT) {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+  firebaseConfig.credential = FirebaseAdmin.credential.cert(serviceAccount);
+}
+
+FirebaseAdmin.initializeApp(firebaseConfig);
 export const Firestore = FirebaseAdmin.firestore();
 
 // Basic 'GET /' endpoint

@@ -1,10 +1,12 @@
+/* eslint-disable import/first */
+process.env.FIRESTORE_EMULATOR_HOST = "localhost:8080";
+process.env.GCLOUD_PROJECT = "strv-addressbook-rangel-vitor";
+process.env.JWT = "strv-addressbook-rangel-vitor";
+
 import compose from "docker-compose";
 import { Server } from "http";
 import path from "path";
 import { serve } from "./server";
-
-process.env.FIRESTORE_EMULATOR_HOST = "localhost:8080";
-process.env.GCLOUD_PROJECT = "strv-addressbook-rangel-vitor";
 
 export const mochaHooks = {
   server: undefined as Server | undefined,

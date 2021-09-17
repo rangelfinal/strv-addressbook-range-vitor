@@ -1,0 +1,23 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "strv-addressbook-rangel-vitor"
+          heroku_email: "rangel.final@gmail.com"
+          usedocker: true
+        env:
+          NODE_ENV: production
+          GCLOUD_PROJECT: strv-addressbook-rangel-vitor
+          HD_FIREBASE_SERVICE_ACCOUNT: ${{secrets.FIREBASE_SERVICE_ACCOUNT}}
+          HD_JWT_SECRET: ${{secrets.JWT_SECRET}}

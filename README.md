@@ -50,10 +50,18 @@ API should serve all kinds of clients (which you do not have to implement)—bot
 - You don’t need to implement a listing of contacts.
 - Clients will connect directly to Firebase to read contacts. Make sure Firebase is safely configured.
 
+## Environment Variables
+
+- JWT_SECRET (Required): The secret used to sign JWTs
+- GCLOUD_PROJECT (Required): The firebase project name
+- FIRESTORE_EMULATOR_HOST (Optional): If set, uses firestore emulator instead of real firestore
+
 ## Local Development
 
 - Use [docker-compose](https://docs.docker.com/compose/install/) to setup postgres and firebase emulator
   - `docker-compose up --detached`
+- Setup JWT secret environment variable
+  - `export JWT_SECRET=my-own-secret-password`
 - Setup firestore emulator environment variable to point our api to the local firestore emulator
   - `export FIRESTORE_EMULATOR_HOST=localhost:8080`
 - Setup gcloud project environment variable
@@ -65,6 +73,7 @@ API should serve all kinds of clients (which you do not have to implement)—bot
 - Run tests with `yarn test`. It will automatically:
   - Build the project with tsc
   - Setup postgres and firestore emulator using [docker-compose](https://docs.docker.com/compose/install/)
+  - Setup firestore/gcloud/jwt environment variables
   - Uses supertest to ensure all endpoints are reachable and work as expected
 
 ## Extras
@@ -74,3 +83,4 @@ API should serve all kinds of clients (which you do not have to implement)—bot
 - Uses [yarn v3](https://dev.to/arcanis/yarn-3-0-performances-esbuild-better-patches-e07) Release Candidate with [Plug'n'Play](https://yarnpkg.com/features/pnp)
 - Uses [subcollections](https://firebase.google.com/docs/firestore/data-model#subcollections) to organize data in firestore
 - Made in around 10h
+- First time I've ever used Koa, I still prefer fastify

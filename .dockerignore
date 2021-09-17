@@ -1,0 +1,8 @@
+.vscode/
+**/*.log
+**/dist
+**/temp
+**/Dockerfile
+*.sh
+**/*.local
+**/.env
