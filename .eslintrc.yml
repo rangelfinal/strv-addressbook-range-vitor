@@ -1,22 +1,17 @@
 env:
-  browser: true
   es2021: true
 extends:
-  - "airbnb"
-  - "airbnb/hooks"
-  - "eslint:recommended"
+  - "airbnb-base"
+  - "airbnb-typescript/base"
   - "plugin:promise/recommended"
   - "plugin:@typescript-eslint/recommended"
   - "plugin:@typescript-eslint/recommended-requiring-type-checking"
+  - "prettier"
 parser: "@typescript-eslint/parser"
 parserOptions:
-  ecmaFeatures:
-    jsx: true
   ecmaVersion: 12
   sourceType: module
   project: "./tsconfig.json"
-plugins:
-  - react
-  - promise
-  - "@typescript-eslint"
-rules: {}
+rules:
+  "import/prefer-default-export": 0
+  "import/no-cycle": 0

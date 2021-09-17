@@ -1,13 +1,16 @@
 {
   "name": "strv-addressbook",
   "version": "0.0.0",
-  "main": "index.js",
+  "main": "dist/index.js",
   "author": "Vitor Terçariol Rangel <rangel.final@gmail.com>",
   "private": true,
   "packageManager": "yarn@3.1.0-rc.5",
   "scripts": {
+    "preinstall": "node -e \"if (process.env.npm_execpath.indexOf('yarn') === -1) throw new Error('This project uses Yarn. Things wil not work properly with npm. Use yarn: https://yarnpkg.com/en/docs/install')\"",
     "build": "tsc",
     "commit": "cz",
+    "start": "yarn build && node dist/index.js",
+    "test": "yarn build && yarn mocha",
     "release": "standard-version",
     "postinstall": "husky install"
   },
@@ -20,7 +23,9 @@
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.1",
     "koa-body": "^4.2.0",
+    "koa-helmet": "^6.1.0",
     "koa-jwt": "^4.0.1",
+    "koa-logger": "^3.2.1",
     "koa-router": "^10.1.1",
     "reflect-metadata": "^0.1.13"
   },
@@ -30,33 +35,42 @@
     "@commitlint/load": "^13.1.0",
     "@commitlint/types": "^13.1.0",
     "@mikro-orm/cli": "^4.5.9",
+    "@mikro-orm/migrations": "^4.5.9",
     "@types/bcrypt": "^5",
     "@types/chai": "^4",
+    "@types/faker": "^5.5.8",
     "@types/jsonwebtoken": "^8",
     "@types/koa": "^2.13.4",
+    "@types/koa-logger": "^3",
     "@types/koa-router": "^7.4.4",
-    "@types/mocha": "^9",
+    "@types/mocha": "^9.0.0",
     "@types/node": "^16.7.10",
+    "@types/supertest": "^2.0.11",
     "@types/uuid": "^8",
-    "@typescript-eslint/eslint-plugin": "^4.30.0",
-    "@typescript-eslint/parser": "^4.30.0",
+    "@typescript-eslint/eslint-plugin": "^4.29.3",
+    "@typescript-eslint/parser": "^4.29.3",
     "chai": "^4.3.4",
     "commitiquette": "^1.1.1",
     "commitizen": "^4.2.4",
     "cz-conventional-changelog": "3.3.0",
+    "docker-compose": "^0.23.13",
     "eslint": "^7.32.0",
-    "eslint-config-airbnb": "^18.2.1",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-airbnb-typescript": "^14.0.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-import-resolver-node": "^0.3.6",
+    "eslint-plugin-import": "^2.24.2",
     "eslint-plugin-promise": "^5.1.0",
-    "eslint-plugin-react": "^7.25.1",
-    "eslint-plugin-react-hooks": "^4.2.0",
+    "faker": "^5.5.3",
     "firebase-tools": "^9.18.0",
     "husky": "^7.0.2",
     "lint-staged": "^11.1.2",
     "mocha": "^9.1.1",
     "prettier": "^2.3.2",
     "standard-version": "^9.3.1",
+    "supertest": "^6.1.6",
     "ts-lib": "^0.0.5",
+    "ts-node": "^10.2.1",
     "typescript": "^4.4.2"
   },
   "config": {
@@ -67,5 +81,12 @@
   "lint-staged": {
     "*.{js,ts}": "eslint --cache --fix",
     "*.{js,ts,json,css,md}": "prettier --write"
+  },
+  "mikro-orm": {
+    "useTsNode": true,
+    "configPaths": [
+      "./src/mikro-orm.config.ts",
+      "./dist/mikro-orm.config.js"
+    ]
   }
 }
