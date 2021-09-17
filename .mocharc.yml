@@ -1,0 +1,8 @@
+require:
+  - dist/server.hooks.js
+extension:
+  - .spec.js
+spec: dist/**/*.spec.js
+check-leaks: true
+growl: true
+timeout: 5000
