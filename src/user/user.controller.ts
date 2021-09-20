@@ -34,7 +34,7 @@ userController.post("/login", async (context) => {
   }
 
   // Create jwt token
-  const token = jwt.sign({ email }, JWTSecret, { expiresIn: "7 days" });
+  const token = jwt.sign({ email }, JWTSecret!, { expiresIn: "7 days" });
 
   context.body = { token };
 });
@@ -52,7 +52,7 @@ userController.post("/register", async (context) => {
   await DI.userRepository.persistAndFlush(user);
 
   // Create jwt token
-  const token = jwt.sign({ email: user.email }, JWTSecret, {
+  const token = jwt.sign({ email: user.email }, JWTSecret!, {
     expiresIn: "7 days",
   });
 
